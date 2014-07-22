@@ -1,1 +1,179 @@
-default
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pitch for shiny application</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Pitch for shiny application">
+  <meta name="author" content="Alberto Hevia">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Pitch for shiny application</h1>
+    <h2>Injuries and fatalities in USA by location</h2>
+    <p>Alberto Hevia<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Synopsis</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Harmful events have caused many injuries and fatalities in USA in the last years.</p>
+
+<p>This shiny app tries to show the number of injuries and fatalities in a specific location during the last 10 years. </p>
+
+<p>To do this, information from The National Oceanic
+and Atmospheric Administration (NOAA) dataset has been used and filtered to obtain a summary of events in the years between 2000 and 2010. You can obtain more information in:</p>
+
+<p><a href="http://www.nws.noaa.gov">http://www.nws.noaa.gov</a></p>
+
+<p>The purpose of this app is to show in a graphic the number of fatalities and injuries in that location and the evolution of them during those years. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Criteria / Results</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>There are several options to show the fatalities / injuries evolution. You can choose between the following criteria:</p>
+
+<ul>
+<li>Latitude and Longitude. The values by defect are related to Los Angeles.</li>
+<li>Two dates within you want to restrict the evaluation. By defect the years from 2000 to 2010.</li>
+<li>The radius in kilometers around the location where you want to evaluate injuries and fatalities. You can find more details on how this calculation was implemented in the following slide.</li>
+</ul>
+
+<p>The results for the above criteria can be displayed as:</p>
+
+<ul>
+<li>A graph where it can be seen the total of injures / fatalities in those years and a prediction line model for them.</li>
+<li>A summary with the total of injuries / fatalities grouped by year.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Distance between two locations</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The earth is not a plane, so calculation of distance must consider that earh is a circunference, the following function was used:</p>
+
+<pre><code class="r">distance &lt;- function (p1, p2) {
+  pr1 &lt;- c(p1[1]*pi/180, p1[2]*pi/180)
+  pr2 &lt;- c(p2[1]*pi/180, p2[2]*pi/180)
+  dx &lt;- abs(pr1[1]-pr2[1])
+  dy &lt;- abs(pr1[2]-pr2[2])
+
+  a &lt;- (sin(dx/2)^2 + cos(pr1[1]))*cos(pr2[1])*sin(dy/2)^2
+  c &lt;- 2 * atan(sqrt(a)/sqrt(1-a))
+  return = (6371 * c)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Final</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Therefore the distance between New York (40.70, 74) and Los Angeles (34.05, 118.24) can be calculated as:</p>
+
+<pre><code class="r">p1 &lt;- c(34.05,118.24)
+p2 &lt;- c(40.70,74)
+print(paste(&quot;Kilometers between Los Angeles and New York&quot;,round(distance(p1,p2),2)))
+</code></pre>
+
+<pre><code>## [1] &quot;Kilometers between Los Angeles and New York 3869.6&quot;
+</code></pre>
+
+<p>And finally, you can evaluate this shiny app in:</p>
+
+<p><a href="http://alberto-hevia-developing-project.shinyapps.io/Developing">http://alberto-hevia-developing-project.shinyapps.io/Developing</a></p>
+
+<p>Thanks</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Synopsis'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Criteria / Results'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Distance between two locations'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Final'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
