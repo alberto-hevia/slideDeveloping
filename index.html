@@ -33,7 +33,7 @@
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
     <h1>Pitch for shiny application</h1>
-    <h2>Injuries and fatalities in USA by location</h2>
+    <h2>Injuries and fatalities in the US by location within a period of time</h2>
     <p>Alberto Hevia<br/></p>
   </hgroup>
   <article></article>  
@@ -46,16 +46,16 @@
     <h2>Synopsis</h2>
   </hgroup>
   <article data-timings="">
-    <p>Harmful events have caused many injuries and fatalities in USA in the last years.</p>
+    <p>Harmful events have caused many injuries and fatalities in the US for the last few years.</p>
 
-<p>This shiny app tries to show the number of injuries and fatalities in a specific location during the last 10 years. </p>
+<p>The shiny app allows to show the number of injuries and fatalities in a specific location for the entire period of ten years. </p>
 
-<p>To do this, information from The National Oceanic
-and Atmospheric Administration (NOAA) dataset has been used and filtered to obtain a summary of events in the years between 2000 and 2010. You can obtain more information in:</p>
+<p>it was managed to use information dataset from The National Oceanic and Atmospheric Administration (NOAA) and filter it to obtain a summary of events in the years between 2000 and 2010.</p>
 
-<p><a href="http://www.nws.noaa.gov">http://www.nws.noaa.gov</a></p>
+<p>You can obtain the reference of the dataset and more information in:
+<a href="http://www.nws.noaa.gov">http://www.nws.noaa.gov</a></p>
 
-<p>The purpose of this app is to show in a graphic the number of fatalities and injuries in that location and the evolution of them during those years. </p>
+<p>The purpose of this app is to show graphically the number of fatalities and injuries in a specific location. In addition, the evolution of fatalities and injures is also shown through this period of time.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -66,19 +66,22 @@ and Atmospheric Administration (NOAA) dataset has been used and filtered to obta
     <h2>Criteria / Results</h2>
   </hgroup>
   <article data-timings="">
-    <p>There are several options to show the fatalities / injuries evolution. You can choose between the following criteria:</p>
+    <p>There are several options to show the evolution of fatalities and injuries. </p>
+
+<p>You can choose between the following criteria:</p>
 
 <ul>
-<li>Latitude and Longitude. The values by defect are related to Los Angeles.</li>
-<li>Two dates within you want to restrict the evaluation. By defect the years from 2000 to 2010.</li>
-<li>The radius in kilometers around the location where you want to evaluate injuries and fatalities. You can find more details on how this calculation was implemented in the following slide.</li>
+<li>Latitude and Longitude. The values by default are related to Los Angeles.</li>
+<li>Two dates within you can restrict the period of the evaluation. </li>
+<li>The radius in kilometers of the location where you want to evaluate injuries and fatalities. 
+You can find in the following slide more details on how the calculation of the closest locations was implemented.</li>
 </ul>
 
 <p>The results for the above criteria can be displayed as:</p>
 
 <ul>
-<li>A graph where it can be seen the total of injures / fatalities in those years and a prediction line model for them.</li>
-<li>A summary with the total of injuries / fatalities grouped by year.</li>
+<li>The graph which shows the total of injuries and fatalities by years and a linear model prediction for them.</li>
+<li>A summary with the total of injuries and fatalities grouped by years.</li>
 </ul>
 
   </article>
@@ -90,19 +93,26 @@ and Atmospheric Administration (NOAA) dataset has been used and filtered to obta
     <h2>Distance between two locations</h2>
   </hgroup>
   <article data-timings="">
-    <p>The earth is not a plane, so calculation of distance must consider that earh is a circunference, the following function was used:</p>
+    <p>The Earth is not flat, therefore the calculation of distance must consider that the Earth is a circunference.</p>
+
+<p>The following function was used to obtain the distance between two points in the Earth:</p>
 
 <pre><code class="r">distance &lt;- function (p1, p2) {
+  # Firstly the latitude and longitude are converted to radians
   pr1 &lt;- c(p1[1]*pi/180, p1[2]*pi/180)
   pr2 &lt;- c(p2[1]*pi/180, p2[2]*pi/180)
+  #The absolute distance for latitude and longitude is calculated.
   dx &lt;- abs(pr1[1]-pr2[1])
   dy &lt;- abs(pr1[2]-pr2[2])
-
+  # We apply the formula considering that Earth has some angle and is not flat  
   a &lt;- (sin(dx/2)^2 + cos(pr1[1]))*cos(pr2[1])*sin(dy/2)^2
   c &lt;- 2 * atan(sqrt(a)/sqrt(1-a))
+  # The distance is converted to kilometers.
   return = (6371 * c)
 }
 </code></pre>
+
+<p>See a sample in the following slide.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -110,20 +120,20 @@ and Atmospheric Administration (NOAA) dataset has been used and filtered to obta
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Final</h2>
+    <h2>Overview</h2>
   </hgroup>
   <article data-timings="">
-    <p>Therefore the distance between New York (40.70, 74) and Los Angeles (34.05, 118.24) can be calculated as:</p>
+    <p>The distance between New York (40.70, 74) and Los Angeles (34.05, 118.24) can be calculated as:</p>
 
 <pre><code class="r">p1 &lt;- c(34.05,118.24)
 p2 &lt;- c(40.70,74)
-print(paste(&quot;Kilometers between Los Angeles and New York&quot;,round(distance(p1,p2),2)))
+print(paste(&quot;Kilometers between Los Angeles and New York:&quot;,round(distance(p1,p2),2)))
 </code></pre>
 
-<pre><code>## [1] &quot;Kilometers between Los Angeles and New York 3869.6&quot;
+<pre><code>## [1] &quot;Kilometers between Los Angeles and New York: 3869.6&quot;
 </code></pre>
 
-<p>And finally, you can evaluate this shiny app in:</p>
+<p>Finally, you can evaluate this shiny app in:</p>
 
 <p><a href="http://alberto-hevia-developing-project.shinyapps.io/Developing">http://alberto-hevia-developing-project.shinyapps.io/Developing</a></p>
 
@@ -157,7 +167,7 @@ print(paste(&quot;Kilometers between Los Angeles and New York&quot;,round(distan
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Final'>
+        data-slide=4 title='Overview'>
          4
       </a>
     </li>
